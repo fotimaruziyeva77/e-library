@@ -5,11 +5,17 @@ import { languages } from './i18n/settings'
 const intlMiddleware = createMiddleware({
   locales: ['uz', 'uz-Cyrl', 'en', 'ru'],
   defaultLocale: 'uz',
-  localeDetection: false // Avtomatik locale detection o'chirish
 })
 
 function normalizePath(pathname: string) {
-  return pathname.replace(/\/+$/, '') || '/'
+  if (pathname === '/') return '/'
+  return pathname.endsWith('/') ? pathname.slice(0, -1) : pathname
+}
+
+function matchRoute(pattern: string, pathname: string) {
+  // "/:lng/books/:slug" -> "^/[^/]+/books/[^/]+/?$"
+  const regex = new RegExp(`^${pattern.replace(/:\w+/g, '[^/]+')}/?$`)
+  return regex.test(pathname)
 }
 
 export async function middleware(req: NextRequest) {
@@ -17,151 +23,76 @@ export async function middleware(req: NextRequest) {
   const rawPathname = req.nextUrl.pathname
   const pathname = normalizePath(rawPathname)
 
-  // 1. Avval next-intl middleware ni ishlatish
   const intlResponse = intlMiddleware(req)
-  
-  // Agar next-intl redirect qilayotgan bo'lsa, uni qaytarish
-  if (intlResponse.headers.get('Location')) {
-    return intlResponse
-  }
+  const location = intlResponse.headers.get('Location')
+  if (location) return intlResponse
 
-  // 2. Localeni aniqlash
   const seg = pathname.split('/')[1] || ''
   const locale = languages.includes(seg) ? seg : 'uz'
 
-  // 3. Maxsus pagelarni aniqlash
-  const isNotFoundPage = pathname === `/${locale}/not-found`
-  const isRootPage = pathname === `/${locale}` || pathname === '/'
-  const isIntroPage = pathname === `/${locale}/intro`
-  
-  // 4. Public route patternlarini aniqlash
-  const publicPatterns = [
-    /^\/?$/, // root
-    new RegExp(`^/${locale}/?$`), // locale root
-    new RegExp(`^/${locale}/about/?$`),
-    new RegExp(`^/${locale}/contribute/?$`),
-    new RegExp(`^/${locale}/books/?$`),
-    new RegExp(`^/${locale}/books/[^/]+/?$`),
-    new RegExp(`^/${locale}/favorites/?$`),
-    new RegExp(`^/${locale}/contact/?$`),
-    new RegExp(`^/${locale}/essentialbook/?$`),
-    new RegExp(`^/${locale}/not-found/?$`),
-    new RegExp(`^/${locale}/profile/?$`),
-    new RegExp(`^/${locale}/statistics/?$`),
-    new RegExp(`^/${locale}/intro/?$`),
+  const isNotFoundPage = pathname === `/${locale}/not-found` || pathname === `/${locale}/not-found/`
+  const isRootPage = pathname === `/${locale}` || pathname === `/${locale}/`
+
+  const publicRoutes = [
+    '/', 
+    '/:lng',
+    '/:lng/about',
+    '/:lng/contribute',
+    '/:lng/books',
+    '/:lng/books/:slug',
+    '/:lng/favorites',
+    '/:lng/contact',
+    '/:lng/essentialbook',
+    '/:lng/not-found',
+    '/:lng/profile',
+    '/:lng/statistics',
+    '/:lng/intro',
   ]
 
-  const isPublic = publicPatterns.some(pattern => pattern.test(pathname))
+  const isPublic = publicRoutes.some(route => matchRoute(route, pathname))
 
-  console.log('Middleware debug:', {
-    pathname,
-    locale,
-    isPublic,
-    isNotFoundPage,
-    isRootPage,
-    isIntroPage
-  })
-
-  // 5. Library ID ni tekshirish
   let libraryId = req.cookies.get('library_id')?.value
 
-  // Agar library_id bo'lmasa, API dan so'rash
   if (!libraryId) {
-    console.log('No library_id cookie found, fetching from API...')
-    
-    // Agar intro yoki root page bo'lsa, library_id siz ham davom ettirish mumkin
-    if (isIntroPage || isRootPage) {
-      console.log('Intro or root page, skipping library check')
-      return intlResponse
-    }
-
     try {
-      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/account/library/${hostname}/`
-      console.log('Fetching library from:', apiUrl)
-      
-      const res = await fetch(apiUrl, { 
-        cache: 'no-store',
-        headers: { 'Accept': 'application/json' }
-      })
-
-      console.log('API response status:', res.status)
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/account/library/${hostname}/`,
+        { cache: 'no-store' }
+      )
 
       if (!res.ok) {
-        console.log('Library API failed, redirecting to intro')
-        // Intro page ga redirect
-        const url = new URL(`/${locale}/intro`, req.url)
-        const response = NextResponse.redirect(url)
-        
-        // Agar oldin cookie bo'lsa, uni tozalash
-        if (req.cookies.get('library_id')) {
-          response.cookies.delete('library_id')
-        }
-        
-        return response
+        return NextResponse.redirect(new URL(`/${locale}/intro`, req.url))
       }
 
       const data = await res.json()
       libraryId = data?.library
-      console.log('Library ID from API:', libraryId)
 
       if (!libraryId) {
-        console.log('No library ID in response, redirecting to intro')
-        const url = new URL(`/${locale}/intro`, req.url)
-        const response = NextResponse.redirect(url)
-        response.cookies.delete('library_id')
-        return response
+        return NextResponse.redirect(new URL(`/${locale}/intro`, req.url))
       }
-
-      // Yangi response yaratish va cookie o'rnatish
-      const response = NextResponse.next()
-      response.cookies.set('library_id', libraryId, {
-        path: '/',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 30, // 30 kun
-        secure: process.env.NODE_ENV === 'production',
-      })
-      
-      return response
-
-    } catch (error) {
-      console.error('Library fetch error:', error)
-      
-      // Intro page ga redirect
-      const url = new URL(`/${locale}/intro`, req.url)
-      const response = NextResponse.redirect(url)
-      response.cookies.delete('library_id')
-      return response
+    } catch {
+      return NextResponse.redirect(new URL(`/${locale}/intro`, req.url))
     }
-  } else {
-    console.log('Library ID from cookie:', libraryId)
-    
-    // Agar library_id bor, lekin route public emas va not-found emas bo'lsa
-    if (!isPublic && !isNotFoundPage) {
-      console.log('Route not found, redirecting to 404')
-      const url = new URL(`/${locale}/not-found`, req.url)
-      return NextResponse.redirect(url)
-    }
-    
-    // Har bir request uchun cookie ni yangilash (muddati uzaytirish)
-    const response = NextResponse.next()
-    response.cookies.set('library_id', libraryId, {
-      path: '/',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 30,
-      secure: process.env.NODE_ENV === 'production',
-    })
-    
-    return response
   }
 
-  // Default holatda next-intl response ni qaytarish
+  if (!req.cookies.get('library_id') && libraryId) {
+    intlResponse.cookies.set('library_id', libraryId, {
+      path: '/',
+      sameSite: 'lax',
+    })
+  }
+
+  if (!libraryId && !isRootPage) {
+    return NextResponse.redirect(new URL(`/${locale}`, req.url))
+  }
+
+  if (!isPublic && !isNotFoundPage) {
+    return NextResponse.redirect(new URL(`/${locale}/not-found`, req.url))
+  }
+
   return intlResponse
 }
 
 export const config = {
-  matcher: [
-    // Barcha yo'llar, lekin static fayllarni chetlab o'tish
-    '/((?!api|_next|_vercel|.*\\..*).*)',
-    '/'
-  ],
+  matcher: ['/((?!.*\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 }
