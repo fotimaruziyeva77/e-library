@@ -8,13 +8,16 @@ const intlMiddleware = createMiddleware({
 })
 
 function normalizePath(pathname: string) {
-  if (pathname === '/') return '/'
-  return pathname.endsWith('/') ? pathname.slice(0, -1) : pathname
+  return pathname.replace(/\/+$/, '') || '/'
 }
 
 function matchRoute(pattern: string, pathname: string) {
-  // "/:lng/books/:slug" -> "^/[^/]+/books/[^/]+/?$"
-  const regex = new RegExp(`^${pattern.replace(/:\w+/g, '[^/]+')}/?$`)
+  // Patternni regex-ga o'girish
+  const regexPattern = pattern
+    .replace(/:\w+/g, '[^/]+')
+    .replace(/\//g, '\\/')
+  
+  const regex = new RegExp(`^${regexPattern}$`)
   return regex.test(pathname)
 }
 
@@ -23,76 +26,146 @@ export async function middleware(req: NextRequest) {
   const rawPathname = req.nextUrl.pathname
   const pathname = normalizePath(rawPathname)
 
-  const intlResponse = intlMiddleware(req)
-  const location = intlResponse.headers.get('Location')
-  if (location) return intlResponse
-
+  // Avval locale borligini tekshirish
   const seg = pathname.split('/')[1] || ''
   const locale = languages.includes(seg) ? seg : 'uz'
 
-  const isNotFoundPage = pathname === `/${locale}/not-found` || pathname === `/${locale}/not-found/`
-  const isRootPage = pathname === `/${locale}` || pathname === `/${locale}/`
+  // Agar locale bo'lmasa, avval next-intl middleware ga yo'naltirish
+  if (!languages.includes(seg) && seg !== '') {
+    return intlMiddleware(req)
+  }
+
+  const isNotFoundPage = pathname === `/${locale}/not-found`
+  const isRootPage = pathname === `/${locale}` || pathname === '/'
+  const isIntroPage = pathname === `/${locale}/intro`
 
   const publicRoutes = [
     '/', 
-    '/:lng',
-    '/:lng/about',
-    '/:lng/contribute',
-    '/:lng/books',
-    '/:lng/books/:slug',
-    '/:lng/favorites',
-    '/:lng/contact',
-    '/:lng/essentialbook',
-    '/:lng/not-found',
-    '/:lng/profile',
-    '/:lng/statistics',
-    '/:lng/intro',
+    `/${locale}`,
+    `/${locale}/about`,
+    `/${locale}/contribute`,
+    `/${locale}/books`,
+    `/${locale}/books/[^/]+`,
+    `/${locale}/favorites`,
+    `/${locale}/contact`,
+    `/${locale}/essentialbook`,
+    `/${locale}/not-found`,
+    `/${locale}/profile`,
+    `/${locale}/statistics`,
+    `/${locale}/intro`,
   ]
 
-  const isPublic = publicRoutes.some(route => matchRoute(route, pathname))
+  const isPublic = publicRoutes.some(route => {
+    const regex = new RegExp(`^${route}$`)
+    return regex.test(pathname)
+  })
 
+  // Debug uchun
+  console.log('Path:', pathname, 'IsPublic:', isPublic, 'Locale:', locale)
+
+  // Agar public route bo'lsa va not-found bo'lmasa
+  if (isPublic && !isNotFoundPage) {
+    // Library ID ni tekshirish va o'rnatish
+    await ensureLibraryId(req, hostname, locale)
+    return NextResponse.next()
+  }
+
+  // Library ID ni tekshirish
   let libraryId = req.cookies.get('library_id')?.value
 
   if (!libraryId) {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/account/library/${hostname}/`,
-        { cache: 'no-store' }
+        { 
+          cache: 'no-store',
+          headers: {
+            'Accept': 'application/json',
+          }
+        }
       )
 
       if (!res.ok) {
-        return NextResponse.redirect(new URL(`/${locale}/intro`, req.url))
+        console.log('Library not found, redirecting to intro')
+        // Agar intro page bo'lmasa, intro ga yo'naltirish
+        if (!isIntroPage && !isRootPage) {
+          const url = new URL(`/${locale}/intro`, req.url)
+          return NextResponse.redirect(url)
+        }
+        return NextResponse.next()
       }
 
       const data = await res.json()
       libraryId = data?.library
 
       if (!libraryId) {
-        return NextResponse.redirect(new URL(`/${locale}/intro`, req.url))
+        if (!isIntroPage && !isRootPage) {
+          const url = new URL(`/${locale}/intro`, req.url)
+          return NextResponse.redirect(url)
+        }
+        return NextResponse.next()
       }
-    } catch {
-      return NextResponse.redirect(new URL(`/${locale}/intro`, req.url))
+
+      // Cookie ni o'rnatish
+      const response = NextResponse.next()
+      response.cookies.set('library_id', libraryId, {
+        path: '/',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 30,
+      })
+      return response
+
+    } catch (error) {
+      console.error('Library fetch error:', error)
+      if (!isIntroPage && !isRootPage) {
+        const url = new URL(`/${locale}/intro`, req.url)
+        return NextResponse.redirect(url)
+      }
+      return NextResponse.next()
     }
   }
 
-  if (!req.cookies.get('library_id') && libraryId) {
-    intlResponse.cookies.set('library_id', libraryId, {
-      path: '/',
-      sameSite: 'lax',
-    })
-  }
-
-  if (!libraryId && !isRootPage) {
-    return NextResponse.redirect(new URL(`/${locale}`, req.url))
-  }
-
+  // Agar library_id bor lekin route public emas va not-found emas
   if (!isPublic && !isNotFoundPage) {
-    return NextResponse.redirect(new URL(`/${locale}/not-found`, req.url))
+    const url = new URL(`/${locale}/not-found`, req.url)
+    return NextResponse.redirect(url)
   }
 
-  return intlResponse
+  return NextResponse.next()
+}
+
+async function ensureLibraryId(req: NextRequest, hostname: string, locale: string) {
+  if (!req.cookies.get('library_id')) {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/account/library/${hostname}/`,
+        { cache: 'no-store' }
+      )
+      
+      if (res.ok) {
+        const data = await res.json()
+        const libraryId = data?.library
+        
+        if (libraryId) {
+          const response = NextResponse.next()
+          response.cookies.set('library_id', libraryId, {
+            path: '/',
+            sameSite: 'lax',
+            maxAge: 60 * 60 * 24 * 30,
+          })
+          return response
+        }
+      }
+    } catch (error) {
+      console.error('Failed to get library ID:', error)
+    }
+  }
+  return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/((?!.*\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: [
+    '/((?!_next|_vercel|.*\\..*).*)', // Barcha yo'llar, lekin static fayllarni chetlab o'tish
+    '/'
+  ],
 }
