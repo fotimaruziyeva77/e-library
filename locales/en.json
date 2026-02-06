@@ -1,0 +1,254 @@
+{
+	"hello": "Hello",
+	"navbar": {
+		"subtitle": "All kinds of books",
+		"categories": "Categories",
+		"search": "Search",
+		"login": "Login",
+		"profileSettins": "Profile settings",
+		"exit": "Exit",
+		"booksearch": "Search for books"
+	},
+	"nav-link": {
+		"homepage": "Homepage",
+		"contribution": "Contribute",
+		"books": "Books",
+		"necessary_books": "Essential books",
+		"statistics": "Statistics",
+		"contacts": "Contacts",
+		"about": "About us",
+		"profile": "Profile",
+		"category": "Choose a category"
+	},
+	"loginbutton": {
+		"phone": "Phone number",
+		"password": "Password",
+		"login": "Login",
+		"forgotpassword": "Forgot password?",
+		"noaccount": "Don't have an account?",
+		"confirmcode": "Enter confirmation code",
+		"sendBack": "Resend",
+		"confirm": "Confirm",
+		"continue": "Continue",
+		"logintext": "Login to the system",
+		"verifycode": "Confirmation code sent!",
+		"resetPassword": "Forgot password?"
+	},
+	"register": {
+		"registertext": "Registration",
+		"registername": "Your name",
+		"registersurname": "Your surname",
+		"registergender": "Your gender",
+		"registermale": "Male",
+		"registerfemale": "Female",
+		"registertusername": "Telegram username",
+		"registerpassword": "Password",
+		"registerphone": "Your phone number",
+		"registerdateofbirth": "Date of birth",
+		"registerdocument": "Identity document",
+		"registerdocument1": "Passport",
+		"registerdocument2": "Birth certificate",
+		"registerdocumentnumber": "Identity document number",
+		"registerdocumentimage": "Upload document image",
+		"registerbutton": "Register",
+		"save": "Save"
+	},
+	"main": {
+		"widelyread": "Most widely read",
+		"maintext": "Do you like reading books?",
+		"maindescription": "Then subscribe to your favorite category to save money",
+		"subscribe": "Subscribe",
+		"newadditions": "New additions"
+	},
+	"application": {
+		"applicationtext": "Contribute to the free library",
+		"applicationcard": "Card"
+	},
+	"books": {
+		"booksyearsfilter": "Filter by year",
+		"booksratingfilter": "Filter by rating",
+		"clearbooks": "Clear",
+		"idbooks": "By ID",
+		"release_date": "Release date",
+		"added_date": "Added date",
+		"rating": "Rating",
+		"similarbooks": "Similar books",
+		"content": "Content",
+		"year": "Year",
+		"languages": "Language",
+		"pages": "Number of pages",
+		"author": "Author",
+		"comment": "Your opinion",
+		"comments": "Comments",
+		"send": "Send",
+		"more": "More",
+		"busy": "Reserve book",
+		"isbn": "ISBN",
+		"booknumber": "Number of books",
+		"publishing": "Publisher",
+		"notleft": "Not left",
+		"available": "Available"
+	},
+	"success": {
+		"confirmationSuccess": "Successfully confirmed",
+		"loginSuccess": "Successfully logged in",
+		"registerSuccess": "Registration completed successfully!",
+		"updateprofile": "Profile updated successfully!",
+		"bookssuccess": "Book successfully taken",
+		"commentsuccess": "Comment sent successfully!",
+		"send": "Send code",
+		"success": "Password changed successfully!"
+	},
+	"notification": {
+		"title": "Please log in first!",
+		"ratingbooks": "Please log in to rate.",
+		"error": "An error occurred!",
+		"booksbusy": "The book is currently reserved!",
+		"confirmationError": "Confirmation error",
+		"unknownServerError": "Unknown server error",
+		"image": "Please upload document images!"
+	},
+	"notfound": {
+		"message": "Nothing found for your request!",
+		"nocomment": "Not rated yet!",
+		"profilenotfound": "Nothing found yet!",
+		"booknotfound": "This book is not available yet!",
+		"error": "Error",
+		"page": "Page not found!"
+	},
+	"essentialbooks": {
+		"essentialbookstext": "Filter by category",
+		"essentialbooksimage": "Image",
+		"essentialbooksname": "Book name",
+		"essentialbooksauthor": "Author",
+		"essentialbooksyears": "Year of publication",
+		"essentialbooksnumber": "Number of reserves",
+		"essentialbooksnumberavailable": "Available quantity"
+	},
+	"statistics": {
+		"statisticstext": "Monthly statistics",
+		"statisticsbooks": "Most read books",
+		"statisticsreaders": "Readers",
+		"title": "Books taken and returned in the last month",
+		"bookresend": "Returned books",
+		"booktitle": "Taken books",
+		"booksAvailable": "Number of available books",
+		"female": "Female readers",
+		"male": "Male readers",
+		"allbooks": "All books",
+		"sametimebooks": "Books being read simultaneously",
+		"agreedtimebooks": "Books not returned on time",
+		"all": "Total",
+		"allbooknumber": "Total number of books",
+		"category": "Statistics by categories"
+	},
+	"intro": {
+		"leaveApplication": "Submit Application",
+		"heroTitle": {
+			"line1": "Digitize-",
+			"line2": "and automate your library!"
+		},
+		"hero": {
+			"badge": "🚀 Innovative platform for libraries",
+			"description": "Manage your library entirely via your own domain (e.g., mylibrary.uz). Control books, staff, and readers all in one place.",
+			"applyButton": "Submit Application",
+			"demoButton": "View Demo"
+		},
+		"solutions": {
+			"title": "Complete solution for your library",
+			"description": "Simplify library operations and boost efficiency with modern tools"
+		},
+		"features": {
+			"domain": {
+				"title": "Custom domain",
+				"description": "Register your library’s domain (mylibrary.uz) and create a professional image"
+			},
+			"librarian": {
+				"title": "Librarian panel",
+				"description": "Convenient panel to add books, register readers, and manage library processes"
+			},
+			"admin": {
+				"title": "Admin panel",
+				"description": "Manage staff, view reports, and fully control library operations"
+			}
+		},
+		"why": {
+			"title": "Why SIFAT Library?",
+			"description": "Want to manage your library with a modern, efficient, and smart system? Then SIFAT Library is the right choice!",
+			"speed": {
+				"title": "We value your time",
+				"description": "Speed up the book lending and return process by up to 90%! Save time with automatic reminders, alerts, and reports."
+			},
+			"centralized": {
+				"title": "Centralized management",
+				"description": "All information about books, readers, and staff in one place. Assign individual roles — full control is in your hands!"
+			},
+			"analytics": {
+				"title": "Complete analytical overview",
+				"description": "Which books are most read? Who are the most active readers? The system analyzes everything for you — just a few clicks away."
+			}
+		},
+		"extras": {
+			"title": "Additional features",
+			"description": "A complete solution to meet all your library needs",
+			"mobile": {
+				"title": "Mobile version",
+				"description": "Works on any device"
+			},
+			"security": {
+				"title": "Security",
+				"description": "Data is protected"
+			},
+			"multiUser": {
+				"title": "Multi-user access",
+				"description": "Multiple users can work simultaneously"
+			},
+			"catalog": {
+				"title": "Book catalog",
+				"description": "Add unlimited books"
+			}
+		},
+		"contact": {
+			"title": "Have questions?",
+			"subtitle": "Contact us and get a free consultation",
+			"phone": {
+				"title": "Phone",
+				"info": "Every day 9:00–18:00"
+			},
+			"telegram": {
+				"title": "Telegram",
+				"info": "Response within 24 hours"
+			},
+			"cta": "Submit Application"
+		},
+		"footer": {
+			"description": "A modern digital solution for libraries – a confident step into the future! Our goal is to make your library more efficient, convenient, and innovative through digitization. Let’s build the libraries of tomorrow, today!",
+			"contact": {
+				"title": "Contact",
+				"address": "Tashkent, Uzbekistan"
+			},
+			"copyright": "© 2025 Sifat Library. All rights reserved."
+		}
+	},
+	"common": {
+		"clear": "Clear",
+		"location": "Location",
+		"phone": "Phone",
+		"email": "Email",
+		"socials": "Social networks"
+	},
+	"profile": {
+		"profileratings": "Reader rating",
+		"profilesettings": "Settings",
+		"profilebooks": "My books",
+		"profileOccupied": "Reserved"
+	},
+	"footer": {
+		"browser": "Social networks",
+		"callme": "Contact us"
+	},
+	"pagination": {
+		"previous": "Previous",
+		"next": "Next"
+	}
+}

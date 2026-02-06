@@ -1,0 +1,254 @@
+{
+	"hello": "Hello uz",
+	"navbar": {
+		"subtitle": "Barcha turdagi kitoblar",
+		"categories": "Ruknlar",
+		"search": "Qidirish",
+		"login": "Kirish",
+		"profileSettins": "Profil sozlamalari",
+		"exit": "Chiqish",
+		"booksearch": "Kitoblarni qidirish"
+	},
+	"nav-link": {
+		"homepage": "Bosh sahifa",
+		"contribution": "Hissa qo'shish",
+		"books": "Kitoblar",
+		"necessary_books": "Zarur kitoblar",
+		"statistics": "Statistika",
+		"contacts": "Kontaklar",
+		"about": "Biz haqimizda",
+		"profile": "Profil",
+		"category": "Kategoriya tanlang"
+	},
+	"loginbutton": {
+		"phone": "Telefon raqami",
+		"password": "Parol",
+		"login": "Kirish",
+		"forgotpassword": "Parolni unutdingizmi?",
+		"noaccount": "Akkauntingiz yo'qmi?",
+		"confirmcode": "Tasdiqlash kodini kiriting",
+		"sendBack": "Qayta yuborish",
+		"confirm": "Tasdiqlash",
+		"continue": "Davom etish",
+		"logintext": "Tizimga kirish",
+		"verifycode": "Tasdiqlash kodi yuborildi!",
+		"resetPassword": "Parolni unutdingizmi?"
+	},
+	"register": {
+		"registertext": "Ro'yxatdan o'tish",
+		"registername": "Ismingiz",
+		"registersurname": "Familiyangiz",
+		"registergender": "Jinsingiz",
+		"registermale": "Erkak",
+		"registerfemale": "Ayol",
+		"registertusername": "Telegram username",
+		"registerpassword": "Parol",
+		"registerphone": "Telefon raqamingiz",
+		"registerdateofbirth": "Tug'ilgan sana",
+		"registerdocument": "Shaxsni tasdiqloqvchi hujjat",
+		"registerdocument1": "Pasport",
+		"registerdocument2": "Tug'ilganlik guvohnomasi",
+		"registerdocumentnumber": "Shaxsni tasdiqlovchi hujjat raqami",
+		"registerdocumentimage": "Hujjat rasmini yuklang",
+		"registerbutton": "Ro'yxatdan o'tish",
+		"save": "Saqlash"
+	},
+	"main": {
+		"widelyread": "Ko'p o'qilayotganlar",
+		"maintext": "Kitob o'qishni yoqtirasizmi?",
+		"maindescription": "Unda pulingizni tejash uchun o'zingiz yoqtirgan ruknga obuna bo'ling",
+		"subscribe": "Obuna bo'lish",
+		"newadditions": "Yangi qo'shilganlar"
+	},
+	"application": {
+		"applicationtext": "Bepul kutubxonaga hissa qo'shish",
+		"applicationcard": "Karta"
+	},
+	"books": {
+		"booksyearsfilter": "Yil bo'yicha",
+		"booksratingfilter": "Reyting bo'yicha",
+		"clearbooks": "Tozalash",
+		"idbooks": "ID bo'yicha",
+		"release_date": "Chiqarilgan vaqti",
+		"added_date": "Qo'shilgan vaqti",
+		"rating": "Reyting",
+		"similarbooks": "O'xshash kitoblar",
+		"content": "Ma'lumotlar",
+		"year": "Yili",
+		"languages": "Tili",
+		"pages": "Betlar soni",
+		"author": "Muallif",
+		"comment": "Fikringiz",
+		"comments": "Fikrlar",
+		"send": "Yuborish",
+		"more": "Ko'proq",
+		"busy": "Band qilish",
+		"isbn": "ISBN",
+		"booknumber": "Kitoblar soni",
+		"publishing": "Nashriyot",
+		"notleft": "Qolmadi",
+		"available": "Mavjud"
+	},
+	"success": {
+		"confirmationSuccess": "Muvaffaqiyatli tasdiqlandi",
+		"loginSuccess": "Tizimga muvaffaqiyatli kirildi",
+		"registerSuccess": "Ro'yxatdan o'tish muvaffaqiyatli yakunlandi!",
+		"updateprofile": "Profil muvaffaqiyatli yangilandi!",
+		"bookssuccess": "Kitob muvaffaqiyatli olindi",
+		"commentsuccess": "Fikr muvaffaqiyatli yuborildi!",
+		"send": " Kod yuborish",
+		"success": "Parol muvaffaqiyatli o'zgartirildi!"
+	},
+	"notification": {
+		"title": "Iltimos oldin tizimga kiring!",
+		"ratingbooks": "Iltimos baholash uchun tizimga kiriting.",
+		"error": "Xatolik yuz berdi!",
+		"booksbusy": "Kitob hozircha band qilingan!",
+		"confirmationError": "Tasdiqlashda xatolik yuz berdi",
+		"unknownServerError": "Nomaʼlum server xatosi",
+		"image": "Iltimos, hujjat rasmlarini yuklang!"
+	},
+	"notfound": {
+		"message": "Sizning so'rovingiz bo'yicha hech narsa topilmadi!",
+		"nocomment": "Hozircha baholanmagan!",
+		"profilenotfound": "Hozircha hech narsa topilmadi!",
+		"booknotfound": "Hozircha bunaqa kitob yo'q!",
+		"error": "Xatolik",
+		"page": "Sahifa topilmadi!"
+	},
+	"essentialbooks": {
+		"essentialbookstext": "Kategoriya bo'yicha filter",
+		"essentialbooksimage": "Rasm",
+		"essentialbooksname": "Kitob nomi",
+		"essentialbooksauthor": "Muallif",
+		"essentialbooksyears": "Chop etilgan yili",
+		"essentialbooksnumber": "Band qilinganlar soni",
+		"essentialbooksnumberavailable": "Mavjud soni"
+	},
+	"statistics": {
+		"statisticstext": "Oylik statistikalar",
+		"statisticsbooks": "Eng Ko'p o'qilgan kitoblar",
+		"statisticsreaders": "Kitobxonlar",
+		"title": "Oxirgi oy ichida olingan va qaytarilgan kitoblar",
+		"bookresend": "Qaytarilgan kitoblar",
+		"booktitle": "Olingan kitoblar",
+		"booksAvailable": "Mavjud kitoblar soni",
+		"female": "Ayol qizlar",
+		"male": "Erkaklar",
+		"allbooks": "Barcha kitoblar",
+		"sametimebooks": "Ayni vaqtda o'qiladigan kitoblar",
+		"agreedtimebooks": "Kelishilgan vaqtda qaytarilmagan kitoblar",
+		"all": "Jami",
+		"allbooknumber": "Umumiy kitoblar soni",
+		"category": "Kategoriyalar bo'yicha statistika"
+	},
+	"intro": {
+		"leaveApplication": "Ariza qoldirish",
+		"heroTitle": {
+			"line1": "Kutubxonangizni-",
+			"line2": "raqamlashtiring va avtomatlashtiring!"
+		},
+		"hero": {
+			"badge": "🚀 Kutubxonalar uchun innovatsion platforma",
+			"description": "O'zingizning domeningiz (masalan, mylibrary.uz) orqali kutubxona faoliyatini to'liq boshqaring. Kitoblar, xodimlar va o'quvchilarni bir joyda nazorat qiling.",
+			"applyButton": "Ariza qoldirish",
+			"demoButton": "Demo ko'rish"
+		},
+		"solutions": {
+			"title": "Kutubxonangiz uchun to'liq yechim",
+			"description": "Zamonaviy vositalar yordamida kutubxona ishlarini osonlashtiring va samaradorlikni oshiring"
+		},
+		"features": {
+			"domain": {
+				"title": "Shaxsiy domen",
+				"description": "O'zingizning kutubxona domeningizni (mylibrary.uz) ro'yxatdan o'tkazing va professional imijingizni yarating"
+			},
+			"librarian": {
+				"title": "Kutubxonachi paneli",
+				"description": "Kitoblarni qo'shish, o'quvchilarni ro'yxatdan o'tkazish va kutubxona jarayonlarini boshqarish uchun qulay panel"
+			},
+			"admin": {
+				"title": "Admin panel",
+				"description": "Xodimlarni boshqarish, hisobotlarni ko'rish va kutubxona faoliyatini to'liq nazorat qilish"
+			}
+		},
+		"why": {
+			"title": "Nega aynan SIFAT kutubxonasi?",
+			"description": "Kutubxonangizni zamonaviy, samarali va aqlli tizim bilan boshqarmoqchimisiz? Unda SIFAT kutubxonasi — to'g'ri tanlov!",
+			"speed": {
+				"title": "Vaqtingizni qadrlaymiz",
+				"description": "Kitob berish va qaytarish jarayonlarini 90% gacha tezlashtiring! Avtomatik eslatmalar, ogohlantirishlar va hisobotlar orqali ortiqcha vaqt yo'qotishdan qutulasiz."
+			},
+			"centralized": {
+				"title": "Markazlashgan boshqaruv",
+				"description": "Endi barcha kitoblar, o'quvchilar va xodimlar haqidagi ma'lumotlar bitta joyda. Rollar orqali har bir foydalanuvchiga alohida huquqlar belgilang — nazorat sizda!"
+			},
+			"analytics": {
+				"title": "To'liq statistik tahlil",
+				"description": "Qaysi kitoblar eng ko'p o'qilmoqda? Eng faol o'quvchilar kim? Bularning barchasini bir nechta bosqichda ko‘rishingiz mumkin — tizim siz uchun avtomatik tahlil qiladi."
+			}
+		},
+		"extras": {
+			"title": "Qo'shimcha imkoniyatlar",
+			"description": "Kutubxonangizning barcha ehtiyojlarini qondiruvchi to'liq yechim",
+			"mobile": {
+				"title": "Mobil versiya",
+				"description": " Har qanday qurilmada ishlaydi"
+			},
+			"security": {
+				"title": "Xavfsizlik",
+				"description": "Ma'lumotlar himoyalangan"
+			},
+			"multiUser": {
+				"title": "Ko'p foydalanuvchi",
+				"description": " Bir vaqtda ko'p kishi ishlashi"
+			},
+			"catalog": {
+				"title": "Kitob katalogi",
+				"description": "Cheksiz kitob qo'shish"
+			}
+		},
+		"contact": {
+			"title": "Savollaringiz bormi?",
+			"subtitle": "Biz bilan bog'laning va bepul maslahat oling",
+			"phone": {
+				"title": "Telefon",
+				"info": "Har kuni 9:00-18:00"
+			},
+			"telegram": {
+				"title": "Telegram",
+				"info": "24 soat ichida javob"
+			},
+			"cta": "Ariza qoldirish"
+		},
+		"footer": {
+			"description": "Kutubxonalar uchun zamonaviy raqamli yechim – kelajak sari ishonchli qadam! Bizning maqsadimiz – kutubxonangizni raqamlashtirish orqali yanada samarali, qulay va innovatsion tizimga aylantirish. Kelajak kutubxonalarini bugun birgalikda barpo etamiz!",
+			"contact": {
+				"title": "Aloqa",
+				"address": "Toshkent, O'zbekiston"
+			},
+			"copyright": "© 2025 Sifat Library. Barcha huquqlar himoyalangan."
+		}
+	},
+	"common": {
+		"clear": "Tozalash",
+		"location": "Manzil",
+		"phone": "Telefon ",
+		"email": "Elektron pochta",
+		"socials": "Ijtimoiy tarmoqlar"
+	},
+	"profile": {
+		"profileratings": "Kitobxon reytingi",
+		"profilesettings": "Sozlamalar",
+		"profilebooks": "Kitoblarim",
+		"profileOccupied": "Band qilinganlar"
+	},
+	"footer": {
+		"browser": "Ijtimoiy tarmoqlar",
+		"callme": "Bog'lanish"
+	},
+	"pagination": {
+		"previous": "Oldingi",
+		"next": "Keyingi"
+	}
+}
