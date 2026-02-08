@@ -32,7 +32,7 @@ export async function middleware(req: NextRequest) {
   // 3. Maxsus pagelarni aniqlash
   const isNotFoundPage = pathname === `/${locale}/not-found`
   const isRootPage = pathname === `/${locale}` || pathname === '/'
-  const isIntroPage = pathname === `/${locale}/intro`
+  // const isIntroPage = pathname === `/${locale}/intro`
   
   // 4. Public route patternlarini aniqlash
   const publicPatterns = [
@@ -48,7 +48,7 @@ export async function middleware(req: NextRequest) {
     new RegExp(`^/${locale}/not-found/?$`),
     new RegExp(`^/${locale}/profile/?$`),
     new RegExp(`^/${locale}/statistics/?$`),
-    new RegExp(`^/${locale}/intro/?$`),
+    // new RegExp(`^/${locale}/intro/?$`),
   ]
 
   const isPublic = publicPatterns.some(pattern => pattern.test(pathname))
@@ -59,7 +59,7 @@ export async function middleware(req: NextRequest) {
     isPublic,
     isNotFoundPage,
     isRootPage,
-    isIntroPage
+    // isIntroPage
   })
 
   // 5. Library ID ni tekshirish
@@ -70,7 +70,7 @@ export async function middleware(req: NextRequest) {
     console.log('No library_id cookie found, fetching from API...')
     
     // Agar intro yoki root page bo'lsa, library_id siz ham davom ettirish mumkin
-    if (isIntroPage || isRootPage) {
+    if ( isRootPage) {
       console.log('Intro or root page, skipping library check')
       return intlResponse
     }
@@ -89,7 +89,7 @@ export async function middleware(req: NextRequest) {
       if (!res.ok) {
         console.log('Library API failed, redirecting to intro')
         // Intro page ga redirect
-        const url = new URL(`/${locale}/intro`, req.url)
+        const url = new URL(`/${locale}/`, req.url)
         const response = NextResponse.redirect(url)
         
         // Agar oldin cookie bo'lsa, uni tozalash
@@ -106,7 +106,7 @@ export async function middleware(req: NextRequest) {
 
       if (!libraryId) {
         console.log('No library ID in response, redirecting to intro')
-        const url = new URL(`/${locale}/intro`, req.url)
+        const url = new URL(`/${locale}/`, req.url)
         const response = NextResponse.redirect(url)
         response.cookies.delete('library_id')
         return response
@@ -127,7 +127,7 @@ export async function middleware(req: NextRequest) {
       console.error('Library fetch error:', error)
       
       // Intro page ga redirect
-      const url = new URL(`/${locale}/intro`, req.url)
+      const url = new URL(`/${locale}/`, req.url)
       const response = NextResponse.redirect(url)
       response.cookies.delete('library_id')
       return response
